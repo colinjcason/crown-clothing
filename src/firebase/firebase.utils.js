@@ -12,6 +12,8 @@ const config = {
     measurementId: "G-77ZNG1HHFR"
   };
 
+  firebase.initializeApp(config)
+
   export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
     const collectionRef = firestore.collection(collectionKey)
     const batch = firestore.batch()
@@ -26,6 +28,7 @@ const config = {
   export const convertCollectionSnapshotToMap = (collections) => {
     const transformedCollection = collections.docs.map(doc => {
       const { title, items } = doc.data()
+      console.log(title)
 
       return {
         routeName: encodeURI(title.toLowerCase()),
@@ -65,8 +68,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   return userRef
 }
-
-firebase.initializeApp(config)
 
 export const auth = firebase.auth()
 export const firestore = firebase.firestore()
